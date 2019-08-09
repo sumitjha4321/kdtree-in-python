@@ -2,10 +2,8 @@ import math
 import xml.etree.ElementTree as ET
 import pprint
 
-
 CIRCLE_TAG_NAME = '{http://www.w3.org/2000/svg}circle'
 GROUP_TAG_NAME = '{http://www.w3.org/2000/svg}g'
-
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -85,7 +83,7 @@ def build_kdtree(points, depth=0):
     return {
         'point': sorted_points[n / 2],
         'left': build_kdtree(sorted_points[:n / 2], depth + 1),
-        'right': build_kdtree(sorted_points[n/2 + 1:], depth + 1)
+        'right': build_kdtree(sorted_points[n / 2 + 1:], depth + 1)
     }
 
 
@@ -135,6 +133,7 @@ def kdtree_closest_point(root, point, depth=0):
         return None
 
     axis = depth % k
+    other_axis = (axis + 1) % k
 
     next_branch = None
     opposite_branch = None
@@ -152,7 +151,7 @@ def kdtree_closest_point(root, point, depth=0):
                                                 depth + 1),
                            root['point'])
 
-    if distance_squared(point, best) > (point[axis] - root['point'][axis]) ** 2:
+    if distance_squared(point, best) > (point[other_axis] - root['point'][other_axis]) ** 2:
         best = closer_distance(point,
                                kdtree_closest_point(opposite_branch,
                                                     point,

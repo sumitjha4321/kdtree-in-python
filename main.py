@@ -133,7 +133,7 @@ def kdtree_closest_point(root, point, depth=0):
         return None
 
     axis = depth % k
-    other_axis = (axis + 1) % k
+    other_axis = (depth + 1) % k
 
     next_branch = None
     opposite_branch = None
